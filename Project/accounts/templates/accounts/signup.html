@@ -1,0 +1,59 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Signup - RBAC Demo{% endblock %}
+
+{% block content %}
+<h2>User Signup</h2>
+
+<form method="post" style="max-width: 400px; margin: 20px 0">
+  {% csrf_token %}
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.username.id_for_label }}">Username:</label>
+    {{ form.username }} {% if form.username.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.username.errors }}</div>
+    {% endif %}
+  </div>
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }} {% if form.email.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.email.errors }}</div>
+    {% endif %}
+  </div>
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.password1.id_for_label }}">Password:</label>
+    {{ form.password1 }} {% if form.password1.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.password1.errors }}</div>
+    {% endif %}
+  </div>
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+    {{ form.password2 }} {% if form.password2.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.password2.errors }}</div>
+    {% endif %}
+  </div>
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.role.id_for_label }}">Role:</label>
+    {{ form.role }} {% if form.role.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.role.errors }}</div>
+    {% endif %}
+  </div>
+  <button
+    type="submit"
+    style="
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    "
+  >
+    Register
+  </button>
+</form>
+
+<p>
+  Already have an account?
+  <a href="{% url 'accounts:login' %}">Log In</a>
+</p>
+{% endblock %}

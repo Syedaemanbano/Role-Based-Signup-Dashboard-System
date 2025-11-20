@@ -1,0 +1,113 @@
+{% extends 'accounts/base.html' %} {% block title %}Admin Dashboard - RBAC
+Demo{% endblock %} {% block content %}
+<style>
+  .row-even {
+    background-color: #ffffff;
+  }
+  .row-odd {
+    background-color: #f8f9fa;
+  }
+</style>
+<h1>🛠️ Admin Dashboard - All Users</h1>
+
+<div style="margin: 20px 0">
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px">
+    <thead>
+      <tr style="background-color: #007bff; color: white">
+        <th style="padding: 12px; border: 1px solid #ddd; text-align: left">
+          ID
+        </th>
+        <th style="padding: 12px; border: 1px solid #ddd; text-align: left">
+          Username
+        </th>
+        <th style="padding: 12px; border: 1px solid #ddd; text-align: left">
+          Role
+        </th>
+        <th style="padding: 12px; border: 1px solid #ddd; text-align: left">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in all_users %}
+      <tr
+        class="{% if forloop.counter0|divisibleby:2 %}row-even{% else %}row-odd{% endif %}"
+      >
+        <td style="padding: 10px; border: 1px solid #ddd">{{ user.id }}</td>
+        <td style="padding: 10px; border: 1px solid #ddd">
+          {{ user.username }}
+        </td>
+        <td style="padding: 10px; border: 1px solid #ddd">
+          {{ user.get_role_display }}
+        </td>
+        <td style="padding: 10px; border: 1px solid #ddd">
+          <a
+            href="{% url 'accounts:update_user' user.id %}"
+            style="
+              padding: 5px 10px;
+              background-color: #28a745;
+              color: white;
+              text-decoration: none;
+              border-radius: 4px;
+              margin-right: 5px;
+            "
+            >Edit</a
+          >
+          {% if user != request.user %}
+          <form
+            action="{% url 'accounts:delete_user' user.id %}"
+            method="post"
+            style="display: inline"
+          >
+            {% csrf_token %}
+            <button
+              type="submit"
+              onclick="return confirm('Are you sure you want to delete {{ user.username }}? This action is permanent.');"
+              style="
+                padding: 5px 10px;
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+              "
+            >
+              Delete
+            </button>
+          </form>
+          {% else %}
+          <span style="color: #6c757d; font-size: 0.9em"
+            >(Cannot Delete Self)</span
+          >
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td
+          colspan="4"
+          style="padding: 20px; text-align: center; border: 1px solid #ddd"
+        >
+          No users found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<p>
+  <a
+    href="{% url 'accounts:logout' %}"
+    style="
+      padding: 8px 16px;
+      background-color: #dc3545;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      display: inline-block;
+    "
+    >Logout</a
+  >
+</p>
+{% endblock %}

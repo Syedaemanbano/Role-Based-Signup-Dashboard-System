@@ -1,0 +1,6 @@
+# Ignore Django template files to prevent breaking template tags
+# Django template tags ({% ... %}) and variables ({{ ... }}) must stay on single lines
+accounts/templates/**/*.html
+**/templates/**/*.html
+*.html
+

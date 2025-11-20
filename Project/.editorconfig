@@ -1,0 +1,21 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.html]
+# Don't auto-format Django template files
+# Django template tags must stay on single lines
+indent_style = space
+indent_size = 2
+
+[accounts/templates/**/*.html]
+# Explicitly ignore Django templates from formatting
+indent_style = space
+indent_size = 2
+

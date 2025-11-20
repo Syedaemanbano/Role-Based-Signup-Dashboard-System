@@ -1,0 +1,55 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Update User - RBAC Demo{% endblock %}
+
+{% block content %}
+<h2>✏️ Update User: {{ target_user.username }}</h2>
+
+<form method="post" style="max-width: 500px; margin: 20px 0">
+  {% csrf_token %}
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.username.id_for_label }}">Username:</label>
+    {{ form.username }} {% if form.username.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.username.errors }}</div>
+    {% endif %}
+  </div>
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }} {% if form.email.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.email.errors }}</div>
+    {% endif %}
+  </div>
+  <div style="margin-bottom: 15px">
+    <label for="{{ form.role.id_for_label }}">Role:</label>
+    {{ form.role }} {% if form.role.errors %}
+    <div style="color: red; font-size: 0.9em">{{ form.role.errors }}</div>
+    {% endif %}
+  </div>
+  <button
+    type="submit"
+    style="
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    "
+  >
+    Save Changes
+  </button>
+  <a
+    href="{% url 'accounts:admin_dashboard' %}"
+    style="
+      padding: 10px 20px;
+      background-color: #6c757d;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      display: inline-block;
+    "
+    >Cancel</a
+  >
+</form>
+{% endblock %}
